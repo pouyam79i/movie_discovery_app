@@ -8,7 +8,7 @@ interface Props {
 
 const MovieCard = ({ movie }: Props) => {
   return (
-    <Card borderRadius={10} overflow={"hidden"} width={"250px"}>
+    <Card>
       <Image
         src={
           "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.poster_path
