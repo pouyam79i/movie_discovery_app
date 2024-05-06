@@ -1,4 +1,5 @@
 import { Box, HStack, Text } from "@chakra-ui/react";
+import ScoreBadge from "./ScoreBadge";
 
 interface Props {
   overview: string;
@@ -18,9 +19,7 @@ const MovieDescription = ({ overview, vote_average }: Props) => {
   return (
     <HStack justifyContent={"space-between"} padding={1}>
       <Text>{getDesText(overview)}</Text>
-      <Box bgColor={"gray.500"} borderRadius={"4px"} paddingX={"4px"}>
-        {vote_average.toFixed(1)}
-      </Box>
+      <ScoreBadge score={vote_average} />
     </HStack>
   );
 };

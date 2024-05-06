@@ -1,6 +1,7 @@
 import { Card, CardBody, Heading, Image, VStack } from "@chakra-ui/react";
 import { Movie } from "../hooks/useMovies";
 import MovieDescription from "./MovieDescription";
+import emptyCover from "../assets/empty-cover.webp";
 
 interface Props {
   movie: Movie;
