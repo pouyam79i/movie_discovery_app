@@ -1,5 +1,6 @@
-import { Card, CardBody, Heading, Image } from "@chakra-ui/react";
+import { Card, CardBody, Heading, Image, VStack } from "@chakra-ui/react";
 import { Movie } from "../hooks/useMovies";
+import MovieDescription from "./MovieDescription";
 
 interface Props {
   movie: Movie;
@@ -13,8 +14,16 @@ const MovieCard = ({ movie }: Props) => {
           "https://image.tmdb.org/t/p/w600_and_h900_bestv2" + movie.poster_path
         }
       />
-      <CardBody>
+      <CardBody
+        flexDirection={"column"}
+        display={"flex"}
+        justifyContent={"space-around"}
+      >
         <Heading fontSize={"2xl"}>{movie.title}</Heading>
+        <MovieDescription
+          overview={movie.overview}
+          vote_average={movie.vote_average}
+        />
       </CardBody>
     </Card>
   );

@@ -5,11 +5,11 @@ import { CanceledError } from "axios";
 export interface Movie {
   id: number;
   title: string;
-  //   original_title: string;
-  //   overview: string;
+  original_title: string;
+  overview: string;
   release_date: string;
   vote_average: number;
-  //   adult: boolean;
+  adult: boolean;
   poster_path: string;
 }
 
