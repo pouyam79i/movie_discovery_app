@@ -18,7 +18,7 @@ const MovieDescription = ({ overview, vote_average }: Props) => {
 
   return (
     <HStack justifyContent={"space-between"} padding={1}>
-      <Text>{getDesText(overview)}</Text>
+      <Text color={"gray.500"}>{getDesText(overview)}</Text>
       <ScoreBadge score={vote_average} />
     </HStack>
   );

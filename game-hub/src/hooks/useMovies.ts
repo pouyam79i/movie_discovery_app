@@ -20,27 +20,28 @@ interface FetchedMovies {
 const useMovies = () => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
-    console.log("Trying");
+    setLoading(true);
     apiClient
       .get<FetchedMovies>("", { signal: controller.signal })
       .then((res) => {
-        console.log("I got res");
-        console.log(res.data.results);
         setMovies(res.data.results);
+        setLoading(false);
       })
       .catch((err) => {
         if (err instanceof CanceledError) return;
         setError(err.message);
+        setLoading(false);
       });
 
     return () => controller.abort();
   }, []);
 
-  return { movies, error };
+  return { movies, error, isLoading };
 };
 
 export default useMovies;
