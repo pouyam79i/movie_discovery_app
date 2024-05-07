@@ -2,37 +2,27 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-export interface Movie {
-  id: number;
-  title: string;
-  original_title: string;
-  overview: string;
-  release_date: string;
-  vote_average: number;
-  adult: boolean;
-  poster_path: string;
+interface Language {
+  iso_639_1: string;
+  english_name: string;
+  name: string;
 }
 
-interface FetchedMovies {
-  results: Movie[];
-}
-
-const useMovies = () => {
-  const [movies, setMovies] = useState<Movie[]>([]);
+const useLanguages = () => {
+  const [languages, setLanguages] = useState<Language[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [lang, setLang] = useState("en");
 
   useEffect(() => {
     const controller = new AbortController();
 
     setLoading(true);
     apiClient
-      .get<FetchedMovies>("/movie/popular?language=" + lang + "-US&page=1", {
+      .get<Language[]>("/configuration/languages", {
         signal: controller.signal,
       })
       .then((res) => {
-        setMovies(res.data.results);
+        setLanguages(res.data.slice(0, 20));
         setLoading(false);
       })
       .catch((err) => {
@@ -42,9 +32,9 @@ const useMovies = () => {
       });
 
     return () => controller.abort();
-  }, []);
+  });
 
-  return { movies, error, isLoading };
+  return { languages, isLoading, error };
 };
 
-export default useMovies;
+export default useLanguages;
