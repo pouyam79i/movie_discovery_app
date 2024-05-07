@@ -14,7 +14,7 @@ const MovieGrid = () => {
       <SimpleGrid
         columns={{ sm: 1, md: 2, lg: 3, xl: 5 }}
         padding={10}
-        spacing={10}
+        spacing={3}
       >
         {isLoading &&
           skeletons.map((item) => (

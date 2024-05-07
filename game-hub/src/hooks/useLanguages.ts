@@ -32,7 +32,7 @@ const useLanguages = () => {
       });
 
     return () => controller.abort();
-  });
+  }, []);
 
   return { languages, isLoading, error };
 };
