@@ -10,9 +10,10 @@ import {
 
 interface Props {
   onSelectLang: (lang: string) => void;
+  selectedLang: string | null;
 }
 
-const Languages = ({ onSelectLang }: Props) => {
+const Languages = ({ onSelectLang, selectedLang }: Props) => {
   const { languages, isLoading, error } = useLanguages();
 
   if (error) return null;
@@ -35,6 +36,7 @@ const Languages = ({ onSelectLang }: Props) => {
             />
             <Button
               fontSize={"lg"}
+              fontWeight={selectedLang === lang.iso_639_1 ? "bold" : "normal"}
               variant={"link"}
               onClick={() => onSelectLang(lang.iso_639_1)}
             >

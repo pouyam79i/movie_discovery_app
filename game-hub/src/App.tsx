@@ -27,6 +27,7 @@ function App() {
             onSelectLang={(lang: string) => {
               setSelectedLang(lang);
             }}
+            selectedLang={selectedLang}
           />
         </GridItem>
       </Show>
