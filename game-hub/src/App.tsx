@@ -3,6 +3,7 @@ import NavBar from "./components/NavBar";
 import MovieGrid from "./components/MoviesGrid";
 import Languages from "./components/Languages";
 import { useState } from "react";
+import CountList from "./components/CountList";
 
 function App() {
   const [selectedLang, setSelectedLang] = useState<string>("en");
@@ -32,6 +33,7 @@ function App() {
         </GridItem>
       </Show>
       <GridItem area="main">
+        <CountList />
         <MovieGrid selectedLang={selectedLang} />
       </GridItem>
     </Grid>
