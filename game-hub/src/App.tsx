@@ -2,8 +2,11 @@ import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import MovieGrid from "./components/MoviesGrid";
 import Languages from "./components/Languages";
+import { useState } from "react";
 
 function App() {
+  const [selectedLang, setSelectedLang] = useState<string>("en");
+
   return (
     <Grid
       templateAreas={{
@@ -20,11 +23,15 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={"10px"}>
-          <Languages />
+          <Languages
+            onSelectLang={(lang: string) => {
+              setSelectedLang(lang);
+            }}
+          />
         </GridItem>
       </Show>
       <GridItem area="main">
-        <MovieGrid />
+        <MovieGrid selectedLang={selectedLang} />
       </GridItem>
     </Grid>
   );

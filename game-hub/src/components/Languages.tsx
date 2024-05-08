@@ -1,7 +1,18 @@
 import useLanguages from "../hooks/useLanguages";
-import { HStack, Image, List, ListItem, Spinner, Text } from "@chakra-ui/react";
+import {
+  Button,
+  HStack,
+  Image,
+  List,
+  ListItem,
+  Spinner,
+} from "@chakra-ui/react";
 
-const Languages = () => {
+interface Props {
+  onSelectLang: (lang: string) => void;
+}
+
+const Languages = ({ onSelectLang }: Props) => {
   const { languages, isLoading, error } = useLanguages();
 
   if (error) return null;
@@ -22,7 +33,13 @@ const Languages = () => {
               boxSize={"35px"}
               borderRadius={12}
             />
-            <Text fontSize={"lg"}>{lang.english_name}</Text>
+            <Button
+              fontSize={"lg"}
+              variant={"link"}
+              onClick={() => onSelectLang(lang.iso_639_1)}
+            >
+              {lang.english_name}
+            </Button>
           </HStack>
         </ListItem>
       ))}

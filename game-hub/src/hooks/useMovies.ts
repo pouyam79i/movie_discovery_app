@@ -17,20 +17,22 @@ interface FetchedMovies {
   results: Movie[];
 }
 
-const useMovies = () => {
+const useMovies = (selectedLang: string) => {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [lang, setLang] = useState("en");
 
   useEffect(() => {
     const controller = new AbortController();
 
     setLoading(true);
     apiClient
-      .get<FetchedMovies>("/movie/popular?language=" + lang + "-US&page=1", {
-        signal: controller.signal,
-      })
+      .get<FetchedMovies>(
+        "/movie/popular?language=" + selectedLang + "-US&page=1",
+        {
+          signal: controller.signal,
+        }
+      )
       .then((res) => {
         setMovies(res.data.results);
         setLoading(false);
@@ -42,7 +44,7 @@ const useMovies = () => {
       });
 
     return () => controller.abort();
-  }, []);
+  }, [selectedLang]);
 
   return { movies, error, isLoading };
 };

@@ -4,8 +4,12 @@ import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import MovieCardContainer from "./MovieCardContainer";
 
-const MovieGrid = () => {
-  const { movies, error, isLoading } = useMovies();
+interface Props {
+  selectedLang: string;
+}
+
+const MovieGrid = ({ selectedLang }: Props) => {
+  const { movies, error, isLoading } = useMovies(selectedLang);
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -18,15 +22,16 @@ const MovieGrid = () => {
       >
         {isLoading &&
           skeletons.map((item) => (
-            <MovieCardContainer>
-              <MovieCardSkeleton key={item} />
+            <MovieCardContainer key={item}>
+              <MovieCardSkeleton />
             </MovieCardContainer>
           ))}
-        {movies.map((movie) => (
-          <MovieCardContainer>
-            <MovieCard key={movie.id} movie={movie} />
-          </MovieCardContainer>
-        ))}
+        {!isLoading &&
+          movies.map((movie) => (
+            <MovieCardContainer key={movie.id}>
+              <MovieCard movie={movie} />
+            </MovieCardContainer>
+          ))}
       </SimpleGrid>
     </>
   );
