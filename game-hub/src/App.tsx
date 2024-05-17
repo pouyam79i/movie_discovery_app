@@ -1,12 +1,13 @@
 import { Grid, GridItem, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import MovieGrid from "./components/MoviesGrid";
-import Languages from "./components/Languages";
+import GenreList from "./components/GenreList";
 import { useState } from "react";
-import CountList from "./components/CountList";
+import CountList from "./components/LanguageList";
+import { Genre } from "./hooks/useGenres";
 
 function App() {
-  const [selectedLang, setSelectedLang] = useState<string>("en");
+  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
 
   return (
     <Grid
@@ -24,17 +25,19 @@ function App() {
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={"10px"}>
-          <Languages
-            onSelectLang={(lang: string) => {
-              setSelectedLang(lang);
+          <GenreList
+            onSelectGenre={(genre: Genre) => {
+              setSelectedGenre(genre);
             }}
-            selectedLang={selectedLang}
+            selectedGenre={selectedGenre}
           />
         </GridItem>
       </Show>
-      <GridItem area="main">
-        <CountList />
-        <MovieGrid selectedLang={selectedLang} />
+      <GridItem area="main" paddingX={"10px"}>
+        <Show above="md">
+          <CountList />
+        </Show>
+        <MovieGrid />
       </GridItem>
     </Grid>
   );

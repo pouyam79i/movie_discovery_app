@@ -2,27 +2,20 @@ import { useEffect, useState } from "react";
 import apiClient from "../services/api-client";
 import { CanceledError } from "axios";
 
-interface Language {
-  iso_639_1: string;
-  english_name: string;
-  name: string;
-}
-
-const useLanguages = () => {
-  const [languages, setLanguages] = useState<Language[]>([]);
+const useData = <T>(endpoint: string) => {
+  const [data, setData] = useState<T | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const controller = new AbortController();
 
-    setLoading(true);
     apiClient
-      .get<Language[]>("/configuration/languages", {
+      .get<T>(endpoint, {
         signal: controller.signal,
       })
       .then((res) => {
-        setLanguages(res.data.slice(0, 20));
+        setData(res.data);
         setLoading(false);
       })
       .catch((err) => {
@@ -34,7 +27,7 @@ const useLanguages = () => {
     return () => controller.abort();
   }, []);
 
-  return { languages, isLoading, error };
+  return { data, error, isLoading };
 };
 
-export default useLanguages;
+export default useData;

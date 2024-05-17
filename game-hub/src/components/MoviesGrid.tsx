@@ -1,15 +1,12 @@
 import { SimpleGrid, Text } from "@chakra-ui/react";
-import useMovies from "../hooks/useMovies";
+
 import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import MovieCardContainer from "./MovieCardContainer";
+import useMovies from "../hooks/useMovies";
 
-interface Props {
-  selectedLang: string;
-}
-
-const MovieGrid = ({ selectedLang }: Props) => {
-  const { movies, error, isLoading } = useMovies(selectedLang);
+const MovieGrid = () => {
+  const { data, error, isLoading } = useMovies();
   const skeletons = [1, 2, 3, 4, 5, 6];
 
   return (
@@ -27,7 +24,7 @@ const MovieGrid = ({ selectedLang }: Props) => {
             </MovieCardContainer>
           ))}
         {!isLoading &&
-          movies.map((movie) => (
+          data?.results.map((movie) => (
             <MovieCardContainer key={movie.id}>
               <MovieCard movie={movie} />
             </MovieCardContainer>

@@ -1,9 +1,10 @@
 import axios from "axios";
 
 export default axios.create({
-  baseURL: "https://rawg-video-games-database.p.rapidapi.com",
+  baseURL: "https://api.themoviedb.org/3",
   headers: {
-    "X-RapidAPI-Key": "",
-    "X-RapidAPI-Host": "",
+    accept: "application/json",
+    Authorization:
+      "Bearer PUT_YOUR_KEY_HERE",
   },
 });
