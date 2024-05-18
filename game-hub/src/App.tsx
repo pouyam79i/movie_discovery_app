@@ -37,7 +37,7 @@ function App() {
         <Show above="md">
           <CountList />
         </Show>
-        <MovieGrid />
+        <MovieGrid selectedGenre={selectedGenre} />
       </GridItem>
     </Grid>
   );
