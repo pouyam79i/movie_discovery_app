@@ -3,11 +3,17 @@ import NavBar from "./components/NavBar";
 import MovieGrid from "./components/MoviesGrid";
 import GenreList from "./components/GenreList";
 import { useState } from "react";
-import CountList from "./components/LanguageList";
+import LanguageList from "./components/LanguageList";
 import { Genre } from "./hooks/useGenres";
+import { Lang } from "./hooks/useLanguage";
 
 function App() {
   const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
+  const [selectedLang, setSelectedLang] = useState<Lang>({
+    english_name: "English",
+    iso_639_1: "en",
+    name: "English",
+  });
 
   return (
     <Grid
@@ -35,9 +41,14 @@ function App() {
       </Show>
       <GridItem area="main" paddingX={"10px"}>
         <Show above="md">
-          <CountList />
+          <LanguageList
+            selectedLang={selectedLang}
+            onSelectLang={(newLang: Lang) => {
+              setSelectedLang(newLang);
+            }}
+          />
         </Show>
-        <MovieGrid selectedGenre={selectedGenre} />
+        <MovieGrid selectedGenre={selectedGenre} selectedLang={selectedLang} />
       </GridItem>
     </Grid>
   );

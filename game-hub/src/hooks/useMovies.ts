@@ -1,5 +1,6 @@
 import useData from "./useData";
 import { Genre } from "./useGenres";
+import { Lang } from "./useLanguage";
 
 export interface Movie {
   id: number;
@@ -17,11 +18,16 @@ interface FetchedMovies {
   results: Movie[];
 }
 
-const useMovies = (selectedGenre: Genre | null) => {
+const useMovies = (selectedGenre: Genre | null, selectedLang: Lang) => {
   return useData<FetchedMovies>(
-    "/discover/movie?include_adult=true&include_video=false&language=en-US&page=1&sort_by=popularity.desc",
-    { params: { with_genres: selectedGenre?.id } },
-    [selectedGenre]
+    "/discover/movie?include_adult=true&include_video=false&page=1&sort_by=popularity.desc",
+    {
+      params: {
+        with_genres: selectedGenre?.id,
+        language: selectedLang?.iso_639_1,
+      },
+    },
+    [selectedGenre, selectedLang]
   );
 };
 
