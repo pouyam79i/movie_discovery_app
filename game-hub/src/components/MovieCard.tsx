@@ -12,6 +12,13 @@ const MovieCard = ({ movie }: Props) => {
   const imgRef = useRef<any>();
   const onImageError = () => (imgRef.current.src = emptyCover);
 
+  const manageTitle = (title: string) => {
+    if (title.length < 20) return title;
+    else {
+      return title.slice(0, 19) + "...";
+    }
+  };
+
   return (
     <Card>
       <Image
@@ -27,7 +34,7 @@ const MovieCard = ({ movie }: Props) => {
         display={"flex"}
         justifyContent={"space-around"}
       >
-        <Heading fontSize={"2xl"}>{movie.title}</Heading>
+        <Heading fontSize={"2xl"}>{manageTitle(movie.title)}</Heading>
         <MovieDescription
           overview={movie.overview}
           vote_average={movie.vote_average}
