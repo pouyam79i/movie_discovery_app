@@ -11,6 +11,7 @@ import SortSelector from "./components/SortSelector";
 export interface MovieQuery {
   genre: Genre | null;
   lang: Lang;
+  sortBy: String;
 }
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
       name: "English",
     },
     genre: null,
+    sortBy: "popularity.desc",
   } as MovieQuery);
 
   return (
@@ -56,7 +58,12 @@ function App() {
                 setMovieQuery({ ...movieQuery, lang });
               }}
             />
-            <SortSelector />
+            <SortSelector
+              selectedSorting={movieQuery.sortBy}
+              onSelectSorting={(sortBy: String) =>
+                setMovieQuery({ ...movieQuery, sortBy })
+              }
+            />
           </HStack>
         </Show>
         <MovieGrid movieQuery={movieQuery} />

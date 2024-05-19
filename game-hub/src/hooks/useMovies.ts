@@ -19,11 +19,12 @@ interface FetchedMovies {
 
 const useMovies = (movieQuery: MovieQuery) => {
   return useData<FetchedMovies>(
-    "/discover/movie?include_adult=true&include_video=false&page=1&sort_by=popularity.desc",
+    "/discover/movie?include_adult=true&include_video=false&page=1",
     {
       params: {
         with_genres: movieQuery.genre?.id,
         language: movieQuery.lang?.iso_639_1,
+        sort_by: movieQuery?.sortBy,
       },
     },
     [movieQuery]
