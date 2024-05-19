@@ -7,13 +7,20 @@ import LanguageList from "./components/LanguageList";
 import { Genre } from "./hooks/useGenres";
 import { Lang } from "./hooks/useLanguage";
 
+export interface MovieQuery {
+  genre: Genre | null;
+  lang: Lang;
+}
+
 function App() {
-  const [selectedGenre, setSelectedGenre] = useState<Genre | null>(null);
-  const [selectedLang, setSelectedLang] = useState<Lang>({
-    english_name: "English",
-    iso_639_1: "en",
-    name: "English",
-  });
+  const [movieQuery, setMovieQuery] = useState<MovieQuery>({
+    lang: {
+      english_name: "English",
+      iso_639_1: "en",
+      name: "English",
+    },
+    genre: null,
+  } as MovieQuery);
 
   return (
     <Grid
@@ -33,22 +40,22 @@ function App() {
         <GridItem area="aside" paddingX={"10px"}>
           <GenreList
             onSelectGenre={(genre: Genre) => {
-              setSelectedGenre(genre);
+              setMovieQuery({ ...movieQuery, genre });
             }}
-            selectedGenre={selectedGenre}
+            selectedGenre={movieQuery.genre}
           />
         </GridItem>
       </Show>
       <GridItem area="main" paddingX={"10px"}>
         <Show above="md">
           <LanguageList
-            selectedLang={selectedLang}
-            onSelectLang={(newLang: Lang) => {
-              setSelectedLang(newLang);
+            selectedLang={movieQuery.lang}
+            onSelectLang={(lang: Lang) => {
+              setMovieQuery({ ...movieQuery, lang });
             }}
           />
         </Show>
-        <MovieGrid selectedGenre={selectedGenre} selectedLang={selectedLang} />
+        <MovieGrid movieQuery={movieQuery} />
       </GridItem>
     </Grid>
   );

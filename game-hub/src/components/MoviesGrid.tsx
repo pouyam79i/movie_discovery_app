@@ -4,16 +4,14 @@ import MovieCard from "./MovieCard";
 import MovieCardSkeleton from "./MovieCardSkeleton";
 import MovieCardContainer from "./MovieCardContainer";
 import useMovies from "../hooks/useMovies";
-import { Genre } from "../hooks/useGenres";
-import { Lang } from "../hooks/useLanguage";
+import { MovieQuery } from "../App";
 
 interface Props {
-  selectedGenre: Genre | null;
-  selectedLang: Lang;
+  movieQuery: MovieQuery;
 }
 
-const MovieGrid = ({ selectedGenre, selectedLang }: Props) => {
-  const { data, error, isLoading } = useMovies(selectedGenre, selectedLang);
+const MovieGrid = ({ movieQuery }: Props) => {
+  const { data, error, isLoading } = useMovies(movieQuery);
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   return (

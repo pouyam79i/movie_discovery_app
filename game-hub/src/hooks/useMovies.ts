@@ -1,6 +1,5 @@
+import { MovieQuery } from "../App";
 import useData from "./useData";
-import { Genre } from "./useGenres";
-import { Lang } from "./useLanguage";
 
 export interface Movie {
   id: number;
@@ -18,16 +17,16 @@ interface FetchedMovies {
   results: Movie[];
 }
 
-const useMovies = (selectedGenre: Genre | null, selectedLang: Lang) => {
+const useMovies = (movieQuery: MovieQuery) => {
   return useData<FetchedMovies>(
     "/discover/movie?include_adult=true&include_video=false&page=1&sort_by=popularity.desc",
     {
       params: {
-        with_genres: selectedGenre?.id,
-        language: selectedLang?.iso_639_1,
+        with_genres: movieQuery.genre?.id,
+        language: movieQuery.lang?.iso_639_1,
       },
     },
-    [selectedGenre, selectedLang]
+    [movieQuery]
   );
 };
 
