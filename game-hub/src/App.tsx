@@ -58,7 +58,7 @@ function App() {
       </Show>
       <GridItem area="main" paddingX={"10px"}>
         <Show above="md">
-          <Box paddingLeft={10}>
+          <Box paddingLeft={5}>
             <MovieHeading movieQuery={movieQuery} />
             <HStack spacing={5} marginBottom={5}>
               <LanguageList

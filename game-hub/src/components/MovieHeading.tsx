@@ -7,7 +7,7 @@ interface Props {
 
 const MovieHeading = ({ movieQuery }: Props) => {
   const heading = `${movieQuery.genre?.name || ""} Movies`;
-  return <Heading marginY={10}>{heading}</Heading>;
+  return <Heading marginY={5} fontSize={'5xl'}>{heading}</Heading>;
 };
 
 export default MovieHeading;
