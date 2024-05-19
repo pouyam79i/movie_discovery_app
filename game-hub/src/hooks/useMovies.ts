@@ -25,6 +25,7 @@ const useMovies = (movieQuery: MovieQuery) => {
         with_genres: movieQuery.genre?.id,
         language: movieQuery.lang?.iso_639_1,
         sort_by: movieQuery?.sortBy,
+        with_keywords: movieQuery?.searchText
       },
     },
     [movieQuery]

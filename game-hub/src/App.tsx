@@ -1,4 +1,4 @@
-import { Grid, GridItem, HStack, Show } from "@chakra-ui/react";
+import { Box, Grid, GridItem, HStack, Show } from "@chakra-ui/react";
 import NavBar from "./components/NavBar";
 import MovieGrid from "./components/MoviesGrid";
 import GenreList from "./components/GenreList";
@@ -7,11 +7,13 @@ import LanguageList from "./components/LanguageList";
 import { Genre } from "./hooks/useGenres";
 import { Lang } from "./hooks/useLanguage";
 import SortSelector from "./components/SortSelector";
+import MovieHeading from "./components/MovieHeading";
 
 export interface MovieQuery {
   genre: Genre | null;
   lang: Lang;
   sortBy: String;
+  searchText: string | null;
 }
 
 function App() {
@@ -23,6 +25,7 @@ function App() {
     },
     genre: null,
     sortBy: "popularity.desc",
+    searchText: null,
   } as MovieQuery);
 
   return (
@@ -37,7 +40,11 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar
+          onSearchSubmit={(searchText: string | null) => {
+            setMovieQuery({ ...movieQuery, searchText });
+          }}
+        />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={"10px"}>
@@ -51,20 +58,23 @@ function App() {
       </Show>
       <GridItem area="main" paddingX={"10px"}>
         <Show above="md">
-          <HStack spacing={5} paddingLeft={10} marginBottom={5}>
-            <LanguageList
-              selectedLang={movieQuery.lang}
-              onSelectLang={(lang: Lang) => {
-                setMovieQuery({ ...movieQuery, lang });
-              }}
-            />
-            <SortSelector
-              selectedSorting={movieQuery.sortBy}
-              onSelectSorting={(sortBy: String) =>
-                setMovieQuery({ ...movieQuery, sortBy })
-              }
-            />
-          </HStack>
+          <Box paddingLeft={10}>
+            <MovieHeading movieQuery={movieQuery} />
+            <HStack spacing={5} marginBottom={5}>
+              <LanguageList
+                selectedLang={movieQuery.lang}
+                onSelectLang={(lang: Lang) => {
+                  setMovieQuery({ ...movieQuery, lang });
+                }}
+              />
+              <SortSelector
+                selectedSorting={movieQuery.sortBy}
+                onSelectSorting={(sortBy: String) =>
+                  setMovieQuery({ ...movieQuery, sortBy })
+                }
+              />
+            </HStack>
+          </Box>
         </Show>
         <MovieGrid movieQuery={movieQuery} />
       </GridItem>
