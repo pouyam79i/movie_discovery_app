@@ -582,3 +582,4 @@ dist-ssr
 
 # Ignore api-client.ts file
 src/services/api-client.ts
+.vercel
